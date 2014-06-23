@@ -23,25 +23,25 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
 	res.send("The API is working");
 });
-
+// get movie list
 app.get('/movies', function(req, res) {
 	db.movies.find({}, res.locals.respond);
 });
-
+// insert movie
 app.post('/movies', function(req, res) {
 	db.movies.insert({title: req.body.title}, res.locals.respond);
 });
-
+// get a movie
 app.get('/movies/:id', function(req, res) {
 	db.movies.findOne({ _id: req.params.id }, res.locals.respond);
 });
-
+// update movie
 app.put('/movies/:id', function(req, res) {
 	db.movies.update({ _id: req.params.id }, req.body, function(err, num) {
 		res.locals.respond(err, { success: num + " records updated"});
 	});
 });
-
+// delete movie
 app.delete('/movies/:id', function(req, res) {
 	db.movies.remove({ _id: req.params.id }, res.locals.respond);
 });
