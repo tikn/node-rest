@@ -32,7 +32,18 @@ app.get('/movies', function(req, res) {
 });
 // insert movie
 app.post('/movies', function(req, res) {
-	db.movies.insert({title: req.body.title}, res.locals.respond);
+	if(!req.body.title) {
+		res.json(400, { error: "A title is required to create a new movie."});
+		return;
+	}
+	db.movies.insert({title: req.body.title}, function(err, created) {
+		if(err) {
+			res.json(500, err);
+			return;
+		}
+		res.set('Location', root + '/movies' + created._id)
+		res.json(201, created);
+	});
 });
 // get a movie
 app.get('/movies/:id', function(req, res) {
