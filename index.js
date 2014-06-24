@@ -44,7 +44,7 @@ app.post('/movies', function(req, res) {
 			res.json(500, { error:err });
 			return;
 		}
-		res.set('Location', root + '/movies' + created._id)
+		res.set('Location', root + '/movies/' + created._id)
 		res.json(201, created);
 	});
 });
