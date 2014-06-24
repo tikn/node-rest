@@ -50,7 +50,17 @@ app.post('/movies', function(req, res) {
 });
 // get a movie
 app.get('/movies/:id', function(req, res) {
-	db.movies.findOne({ _id: req.params.id }, res.locals.respond);
+	db.movies.findOne({ _id: req.params.id }, function(err, result) {
+		if(err) {
+			res.json(500, { error: err });
+			return;
+		}
+		if(!result) {
+			res.json(404, { error: { message: "We did not find a movie with id: " + req.params.id }});
+			return;
+		}
+		res.json(200, result);
+	});
 });
 // update movie
 app.put('/movies/:id', function(req, res) {
@@ -60,7 +70,18 @@ app.put('/movies/:id', function(req, res) {
 });
 // delete movie
 app.delete('/movies/:id', function(req, res) {
-	db.movies.remove({ _id: req.params.id }, res.locals.respond);
+	db.movies.remove({ _id: req.params.id }, function(err, num) {
+		if(err) {
+			res.json(500, { error:err });
+			return;
+		}
+		if(num === 0) {
+			res.json(404, { error: { message: "We did not find a movie with id: " + req.params.id }});
+			return;
+		}
+		res.set('Link', root + '/movies; rel="collection"');
+		res.send(204);
+	});
 });
 
 app.listen(port);
