@@ -10,6 +10,9 @@ var root = "http://localhost:" + port;
 // connect to NeDB database
 db.movies = new Datastore({ filename: 'db/movies', autoload: true });
 
+// Add an index
+db.movies.ensureIndex({ fieldName: 'title', unique: true });
+
 // Necessary for accessing POST data via req.body object
 // app.use(express.bodyParser());
 app.use(express.urlencoded());
