@@ -4,6 +4,9 @@ var Datastore = require('nedb');
 var db = {};
 var responder = require('./httpResponder');
 
+var port = process.argv[2] || 3000;
+var root = "http://localhost:" + port;
+
 // connect to NeDB database
 db.movies = new Datastore({ filename: 'db/movies', autoload: true });
 
@@ -46,4 +49,4 @@ app.delete('/movies/:id', function(req, res) {
 	db.movies.remove({ _id: req.params.id }, res.locals.respond);
 });
 
-app.listen(3000);
+app.listen(port);
