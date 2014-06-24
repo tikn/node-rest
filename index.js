@@ -36,12 +36,12 @@ app.get('/movies', function(req, res) {
 // insert movie
 app.post('/movies', function(req, res) {
 	if(!req.body.title) {
-		res.json(400, { error: "A title is required to create a new movie."});
+		res.json(400, { error: { message: "A title is required to create a new movie." }} );
 		return;
 	}
 	db.movies.insert({title: req.body.title}, function(err, created) {
 		if(err) {
-			res.json(500, err);
+			res.json(500, { error:err });
 			return;
 		}
 		res.set('Location', root + '/movies' + created._id)
