@@ -1,6 +1,4 @@
 {"title":"Star Wars: Episode I","_id":"4X7MqlE5jNvwyUGk"}
 {"title":"Star Wars: Episode II","_id":"TuJhvA2l6hHE5Ri4","rating":"5"}
 {"title":"Die Hard","rating":"4.5","_id":"vBmlHIrWLgVy0kHD"}
-{"title":"DIE HARD","_id":"wo50s1xr7cThljDT"}
 {"$$indexCreated":{"fieldName":"title","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"wo50s1xr7cThljDT"}
