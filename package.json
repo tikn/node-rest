@@ -1,13 +1,14 @@
 {
-	"name": "node-rest",
-	"description": "Node REST API",
-	"version": "0.0.1",
-	"repository": {
-	"type": "git",
-	"url": "https://github.com/rulicimot/node-rest.git"
-	},
-	"dependencies": {
-	"nedb": "~0.9.4",
-	"express": "~3.4.8"
-	}
+  "name": "node-rest",
+  "description": "Node REST API",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rulicimot/node-rest.git"
+  },
+  "dependencies": {
+    "nedb": "~0.9.4",
+    "express": "~3.4.8",
+    "underscore": "~1.6.0"
+  }
 }
