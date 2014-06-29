@@ -31,7 +31,16 @@ app.get('/', function(req, res) {
 });
 // get movie list
 app.get('/movies', function(req, res) {
-	db.movies.find({}, res.locals.respond);
+	db.movies.find({}, function(err, results) {
+		if(err) {
+			res.json(500, { error:err });
+			return;
+		}
+		res.json(200, results.map(function(movie) {
+			movie.links = { self: root + '/movies/' + movie._id };
+			return movie;
+		}));
+	});
 });
 // insert movie
 app.post('/movies', function(req, res) {
