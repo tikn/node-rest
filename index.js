@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var Datastore = require('nedb');
 var db = {};
-var responder = require('./httpResponder');
+var wrapper = require('./lib/wrapper.js');
 
 var port = process.argv[2] || 3000;
 var root = "http://localhost:" + port;
@@ -21,7 +21,7 @@ app.use(express.json());
 // catch all route to set global values
 app.use(function(req, res, next) {
 	res.type('application/json');
-	res.locals.respond = responder.setup(res);
+	res.locals.wrap = wrapper.create();
 	next();
 });
 
@@ -36,10 +36,10 @@ app.get('/movies', function(req, res) {
 			res.json(500, { error:err });
 			return;
 		}
-		res.json(200, results.map(function(movie) {
+		res.json(200, res.locals.wrap(results.map(function(movie) {
 			movie.links = { self: root + '/movies/' + movie._id };
 			return movie;
-		}));
+		})));
 	});
 });
 // insert movie
